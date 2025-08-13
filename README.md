@@ -22,3 +22,66 @@ Limit 10;
 |Joete Cudiff|51|divorced|jcudiff7@ycombinator.com|616-617-0965|975 Dwight Plaza,Grand Rapids,Michigan|Research Nurse|11/16/2014|
 |mendie alexandrescu|46|single|malexandrescu8@state.gov|504-918-4753|34 Delladonna Terrace,New Orleans,Louisiana|Systems Administrator III|3/12/1921|
 |fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 Jackson Park,Honolulu,Hawaii|Chemical Engineer|11/5/2014|
+## Make a copy of your table
+Let generate a new table where we can manipulate and restructure the data without modifying the original dataset.
+-- Copy_of_club_member_info definition
+
+CREATE TABLE Copy_of_club_member_info (
+	full_name VARCHAR(50),
+	age INTEGER,
+	martial_status VARCHAR(50),
+	email VARCHAR(50),
+	phone NVARCHAR(50),
+	full_address NVARCHAR(50),
+	job_title VARCHAR(50),
+	membership_date NVARCHAR(50)
+);
+```sql
+CREATE TABLE Copy_of_club_member_info_cleaned (
+	full_name VARCHAR(50),
+	age INTEGER,
+	martial_status VARCHAR(50),
+	email VARCHAR(50),
+	phone NVARCHAR(50),
+	full_address NVARCHAR(50),
+	job_title VARCHAR(50),
+	membership_date NVARCHAR(50)
+);
+```
+##Copy all values from original table
+```sql
+INSERT INTO Copy_of_club_member_info_cleaned 
+SELECT * FROM Copy_of_club_member_info;
+```
+## Full name column cleaning
+I have identified that full_name column contained several inconsistencies. I plan to:
++ Trim whitespaces
++ Convert all names to upper case
+
+### Trim whitespaces and Uppercase
+
+```sql
+UPDATE Copy_of_club_member_info_cleaned
+SET full_name = trim(upper(full_name));
+```
+## Age Cleaning
+Possible issues with age:
+- Empty
+- Outside realistic rage (18-90)
+```sql
+select count(*) from Copy_of_club_member_info_cleaned
+where age<18 or age >90 or age is NULL;
+```
+The result of checking:
+
+|count(*)|
+|--------|
+|18|
+
+### Upadate all outsiders to NULL
+```sql
+UPDATE Copy_of_club_member_info_cleaned
+SET age = NULL
+WHERE age < 18 OR age > 90 or age is NULL;
+```
+
