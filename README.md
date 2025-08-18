@@ -1,9 +1,9 @@
-#Data Cleaning
+# Data Cleaning
 ## Project Description
 
 This is an educational project on data cleaning and preparation using SQL. The original database in CSV format is located in the file club_member_info.csv. Here, we will explore the steps that need to be applied to obtain a cleansed version of the dataset.
 
-Get the 10 first rows from the table using SQL console
+Get the first 10 rows from the table using SQL console
 
 ```sql
 SELECT *
@@ -23,7 +23,7 @@ Limit 10;
 |mendie alexandrescu|46|single|malexandrescu8@state.gov|504-918-4753|34 Delladonna Terrace,New Orleans,Louisiana|Systems Administrator III|3/12/1921|
 |fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 Jackson Park,Honolulu,Hawaii|Chemical Engineer|11/5/2014|
 ## Make a copy of your table
-Let generate a new table where we can manipulate and restructure the data without modifying the original dataset.
+Let's generate a new table where we can manipulate and restructure the data without modifying the original dataset.
 -- Copy_of_club_member_info definition
 
 CREATE TABLE Copy_of_club_member_info (
@@ -78,7 +78,7 @@ The result of checking:
 |--------|
 |18|
 
-### Upadate all outsiders to NULL
+### Update all outsiders to NULL
 ```sql
 UPDATE Copy_of_club_member_info_cleaned
 SET age = NULL
